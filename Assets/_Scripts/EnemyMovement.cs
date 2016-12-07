@@ -5,13 +5,14 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour {
 
     public GameObject player;
+    public float ignorethis;
     public float moveSpeed = 4.5f;
 
     Vector3 target;
 
     float gravity = -20;
     //float jumpVelocity;
-    Vector3 velocity;
+    public Vector3 velocity;
 
     float velocityXSmoothing;
     float velocityYSmoothing;
@@ -23,7 +24,7 @@ public class EnemyMovement : MonoBehaviour {
     void Start()
     {
         controller = GetComponent<Controller2d>();
-        
+        ignorethis = moveSpeed;
 
         //gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         //jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;

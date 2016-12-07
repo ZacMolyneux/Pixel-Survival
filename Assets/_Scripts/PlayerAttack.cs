@@ -88,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
         if(currentXP >= MAX_XP)
         {
             damage++;
-            currentXP = 0;
+            //currentXP = 0;
             MAX_XP *= 2;
         }
     }
