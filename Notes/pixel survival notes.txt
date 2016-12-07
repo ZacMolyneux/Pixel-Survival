@@ -1,0 +1,12 @@
+Pixel Survival
+---------------
+
+things to do for the prototype
+	- controller support
+	- basic hud
+	- basic tower
+	- basic abilities
+	- enemy variation
+		- 3 enemy types
+	- basic spending pixels
+
