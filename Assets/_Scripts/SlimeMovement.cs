@@ -60,7 +60,7 @@ public class SlimeMovement : MonoBehaviour
 
         if(currentJumpDelay <= 0)
         {
-            moveSpeed = 500;
+            moveSpeed = 250;
             if (target.x > transform.position.x)
             {
                 //target is on right

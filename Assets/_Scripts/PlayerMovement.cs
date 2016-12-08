@@ -30,7 +30,9 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
-        if(controller.collisions.above || controller.collisions.below)
+        //CheckMousePos();
+
+        if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0;
         }
@@ -47,4 +49,7 @@ public class PlayerMovement : MonoBehaviour {
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+
+    
 }

@@ -22,7 +22,7 @@ public class EnemyRangedAttack : MonoBehaviour
             target = GameObject.FindGameObjectWithTag("Player");
         }
 
-        Debug.Log(Vector3.Distance(target.transform.position, transform.position));
+        //Debug.Log(Vector3.Distance(target.transform.position, transform.position));
 
         //stop moving closer to target
         if (Vector3.Distance( target.transform.position, transform.position) <= MaxRange)

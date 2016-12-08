@@ -46,7 +46,7 @@ public class SpawnerScript : MonoBehaviour
             randSplit = Random.Range(1, wavePool);
             wavePool -= randSplit;
 
-            Debug.Log(randSplit);
+            //Debug.Log(randSplit);
 
             SpawnSelection(randSplit);
             //currentSpawned++;
@@ -69,7 +69,7 @@ public class SpawnerScript : MonoBehaviour
         int choice = 0;
         if(randSplit >= bullCost)//choose any
         {
-            Debug.Log("bull");
+            //Debug.Log("bull");
             choice = Random.Range(1, 4);
         }
         else if(randSplit >= elementalCost)
