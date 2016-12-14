@@ -12,6 +12,7 @@ public class SlimeMovement : MonoBehaviour
     Controller2d controller;
 
     public float MAX_JUMP_DELAY;
+    public float MIN_JUMP_DELAY;
     public float currentJumpDelay;
 
     public float jumpHeight = 4;
@@ -28,13 +29,15 @@ public class SlimeMovement : MonoBehaviour
     float targetVelocityX;
     float velocityXSmoothing;
 
+    public GameObject Sprite;
+    public Animator anim;
+
     void Start()
     {
         controller = GetComponent<Controller2d>();
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        
     }
 
     void Update()
@@ -54,6 +57,14 @@ public class SlimeMovement : MonoBehaviour
             targetVelocityX = 0;
             velocityXSmoothing = 0;
             currentJumpDelay -= Time.deltaTime;
+            //anim.speed = 1.5f;
+            //anim.SetTrigger("LANDED");
+            anim.SetBool("LANDED", true);
+        }
+        else
+        {
+            //anim.speed = 0.2f;
+            anim.SetBool("LANDED", false);
         }
 
         //currentJumpDelay -= Time.deltaTime;
@@ -66,14 +77,18 @@ public class SlimeMovement : MonoBehaviour
                 //target is on right
                 velocity.y = jumpVelocity;
                 targetVelocityX = 1 * moveSpeed;
+                Sprite.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
             else if (target.x < transform.position.x)
             {
                 //target is on left
                 velocity.y = jumpVelocity;
                 targetVelocityX = -1 * moveSpeed;
+                Sprite.transform.localRotation = new Quaternion(0, 0, 0, 0);
             }
-            currentJumpDelay = MAX_JUMP_DELAY;
+            float jumpDelay = Random.Range(MIN_JUMP_DELAY, MAX_JUMP_DELAY);
+            currentJumpDelay = jumpDelay;
+            //Debug.Log(jumpDelay);
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirbourne);
             
         }
@@ -83,5 +98,12 @@ public class SlimeMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
 
+    }
+
+    public void KnockBack()
+    {
+        //rb.AddForce((player.transform.position - transform.position) * 10000);
+        velocity = new Vector3((transform.position.x - player.transform.position.x) * 10, Mathf.Abs(transform.position.y - player.transform.position.y) * 15, 0) / transform.localScale.x;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
