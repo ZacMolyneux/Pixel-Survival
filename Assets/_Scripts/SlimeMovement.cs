@@ -12,6 +12,7 @@ public class SlimeMovement : MonoBehaviour
     Controller2d controller;
 
     public float MAX_JUMP_DELAY;
+    public float MIN_JUMP_DELAY;
     public float currentJumpDelay;
 
     public float jumpHeight = 4;
@@ -37,7 +38,6 @@ public class SlimeMovement : MonoBehaviour
 
         gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        
     }
 
     void Update()
@@ -86,7 +86,9 @@ public class SlimeMovement : MonoBehaviour
                 targetVelocityX = -1 * moveSpeed;
                 Sprite.transform.localRotation = new Quaternion(0, 0, 0, 0);
             }
-            currentJumpDelay = MAX_JUMP_DELAY;
+            float jumpDelay = Random.Range(MIN_JUMP_DELAY, MAX_JUMP_DELAY);
+            currentJumpDelay = jumpDelay;
+            //Debug.Log(jumpDelay);
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirbourne);
             
         }
@@ -96,5 +98,12 @@ public class SlimeMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
 
+    }
+
+    public void KnockBack()
+    {
+        //rb.AddForce((player.transform.position - transform.position) * 10000);
+        velocity = new Vector3((transform.position.x - player.transform.position.x) * 10, Mathf.Abs(transform.position.y - player.transform.position.y) * 15, 0) / transform.localScale.x;
+        controller.Move(velocity * Time.deltaTime);
     }
 }

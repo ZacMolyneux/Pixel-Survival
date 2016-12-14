@@ -10,7 +10,7 @@ public class EnemyMovement : MonoBehaviour {
 
     Vector3 target;
 
-    float gravity = -20;
+    float gravity = -23;
     //float jumpVelocity;
     public Vector3 velocity;
 
@@ -76,5 +76,12 @@ public class EnemyMovement : MonoBehaviour {
             controller.Move(velocity * Time.deltaTime);
         }
         
+    }
+
+    public void KnockBack()
+    {
+        //rb.AddForce((player.transform.position - transform.position) * 10000);
+        velocity = new Vector3((transform.position.x - player.transform.position.x) * 10, 8, 0) / transform.localScale.x;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
