@@ -28,6 +28,9 @@ public class SlimeMovement : MonoBehaviour
     float targetVelocityX;
     float velocityXSmoothing;
 
+    public GameObject Sprite;
+    public Animator anim;
+
     void Start()
     {
         controller = GetComponent<Controller2d>();
@@ -54,6 +57,14 @@ public class SlimeMovement : MonoBehaviour
             targetVelocityX = 0;
             velocityXSmoothing = 0;
             currentJumpDelay -= Time.deltaTime;
+            //anim.speed = 1.5f;
+            //anim.SetTrigger("LANDED");
+            anim.SetBool("LANDED", true);
+        }
+        else
+        {
+            //anim.speed = 0.2f;
+            anim.SetBool("LANDED", false);
         }
 
         //currentJumpDelay -= Time.deltaTime;
@@ -66,12 +77,14 @@ public class SlimeMovement : MonoBehaviour
                 //target is on right
                 velocity.y = jumpVelocity;
                 targetVelocityX = 1 * moveSpeed;
+                Sprite.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
             else if (target.x < transform.position.x)
             {
                 //target is on left
                 velocity.y = jumpVelocity;
                 targetVelocityX = -1 * moveSpeed;
+                Sprite.transform.localRotation = new Quaternion(0, 0, 0, 0);
             }
             currentJumpDelay = MAX_JUMP_DELAY;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirbourne);
